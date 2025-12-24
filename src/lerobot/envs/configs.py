@@ -402,6 +402,7 @@ class IsaaclabArenaEnv(EnvConfig):
     camera_keys: str | None = None
     features: dict[str, PolicyFeature] = field(default_factory=dict)
     features_map: dict[str, str] = field(default_factory=dict)
+    config_path: str | None = None
 
     def __post_init__(self):
         # Set action feature
@@ -430,26 +431,31 @@ class IsaaclabArenaEnv(EnvConfig):
     @property
     def hub_kwargs(self) -> dict:
         """Return kwargs for the hub's make_env function."""
-        return {
-            "environment": self.environment,
-            "embodiment": self.embodiment,
-            "object": self.object,
-            "mimic": self.mimic,
-            "teleop_device": self.teleop_device,
-            "seed": self.seed,
-            "device": self.device,
-            "disable_fabric": self.disable_fabric,
-            "enable_cameras": self.enable_cameras,
-            "headless": self.headless,
-            "enable_pinocchio": self.enable_pinocchio,
-            "episode_length": self.episode_length,
-            "state_dim": self.state_dim,
-            "action_dim": self.action_dim,
-            "camera_height": self.camera_height,
-            "camera_width": self.camera_width,
-            "video": self.video,
-            "video_length": self.video_length,
-            "video_interval": self.video_interval,
-            "state_keys": self.state_keys,
-            "camera_keys": self.camera_keys or "",  # Pass empty string for no cameras
-        }
+        if self.config_path:  # if config_path is provided, use it to load the environment config, otherwise use the environment config
+            return {
+                "config_path": self.config_path,
+            }
+        else:
+            return {
+                "environment": self.environment,
+                "embodiment": self.embodiment,
+                "object": self.object,
+                "mimic": self.mimic,
+                "teleop_device": self.teleop_device,
+                "seed": self.seed,
+                "device": self.device,
+                "disable_fabric": self.disable_fabric,
+                "enable_cameras": self.enable_cameras,
+                "headless": self.headless,
+                "enable_pinocchio": self.enable_pinocchio,
+                "episode_length": self.episode_length,
+                "state_dim": self.state_dim,
+                "action_dim": self.action_dim,
+                "camera_height": self.camera_height,
+                "camera_width": self.camera_width,
+                "video": self.video,
+                "video_length": self.video_length,
+                "video_interval": self.video_interval,
+                "state_keys": self.state_keys,
+                "camera_keys": self.camera_keys or "",  # Pass empty string for no cameras
+            }
