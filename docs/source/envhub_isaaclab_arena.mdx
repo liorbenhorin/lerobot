@@ -364,6 +364,7 @@ Assuming you followed the [Installation](#installation) steps, you can install L
 ```bash
 # Install Pinocchio (required for IK solvers)
 conda install pinocchio -c conda-forge -y
+pip install numpy==1.26.0 # revert to numpy version is 1.26
 
 # Install and initialize Git LFS (Required for large asset files like .usd)
 sudo apt-get install git-lfs && git lfs install
@@ -403,6 +404,7 @@ The following trained policies are available:
 #### Evaluate SmolVLA
 
 ```bash
+# cd lw_benchhub
 lerobot-eval \
   --policy.path=LightwheelAI/smolvla-double-piper-pnp \
   --env.type=isaaclab_arena \
