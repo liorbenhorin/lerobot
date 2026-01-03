@@ -362,9 +362,16 @@ With the unified interface provided by EnvHub, developers can quickly build end-
 Assuming you followed the [Installation](#installation) steps, you can install LW-BenchHub with:
 
 ```bash
+# Install Pinocchio (required for IK solvers)
 conda install pinocchio -c conda-forge -y
+
+# Install and initialize Git LFS (Required for large asset files like .usd)
+sudo apt-get install git-lfs && git lfs install
+
+# Clone and install LW-BenchHub
 git clone https://github.com/LightwheelAI/lw_benchhub
 cd lw_benchhub
+git lfs pull  # Ensure LFS files (e.g., .usd assets) are downloaded
 pip install -e .
 ```
 
