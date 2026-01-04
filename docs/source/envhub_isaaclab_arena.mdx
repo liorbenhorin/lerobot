@@ -34,6 +34,7 @@ Hardware requirements are shared with Isaac Sim, and are detailed in [Isaac Sim 
 # 1. Create conda environment
 conda create -y -n lerobot-arena python=3.11
 conda activate lerobot-arena
+conda install pinocchio -c conda-forge -y
 conda install -y -c conda-forge ffmpeg=7.1.1
 
 # 2. Install Isaac Sim 5.1.0
@@ -362,9 +363,14 @@ With the unified interface provided by EnvHub, developers can quickly build end-
 Assuming you followed the [Installation](#installation) steps, you can install LW-BenchHub with:
 
 ```bash
-conda install pinocchio -c conda-forge -y
+# Ensure Pinocchio is installed first when setting up the environment
+# Install and initialize Git LFS (Required for large asset files like .usd)
+sudo apt-get install git-lfs && git lfs install
+
+# Clone and install LW-BenchHub
 git clone https://github.com/LightwheelAI/lw_benchhub
 cd lw_benchhub
+git lfs pull  # Ensure LFS files (e.g., .usd assets) are downloaded
 pip install -e .
 ```
 
@@ -396,6 +402,7 @@ The following trained policies are available:
 #### Evaluate SmolVLA
 
 ```bash
+# cd lw_benchhub
 lerobot-eval \
   --policy.path=LightwheelAI/smolvla-double-piper-pnp \
   --env.type=isaaclab_arena \
