@@ -34,6 +34,7 @@ Hardware requirements are shared with Isaac Sim, and are detailed in [Isaac Sim 
 # 1. Create conda environment
 conda create -y -n lerobot-arena python=3.11
 conda activate lerobot-arena
+conda install pinocchio -c conda-forge -y
 conda install -y -c conda-forge ffmpeg=7.1.1
 
 # 2. Install Isaac Sim 5.1.0
@@ -362,10 +363,7 @@ With the unified interface provided by EnvHub, developers can quickly build end-
 Assuming you followed the [Installation](#installation) steps, you can install LW-BenchHub with:
 
 ```bash
-# Install Pinocchio (required for IK solvers)
-conda install pinocchio -c conda-forge -y
-pip install numpy==1.26.0 # revert to numpy version is 1.26
-
+# Ensure Pinocchio is installed first when setting up the environment
 # Install and initialize Git LFS (Required for large asset files like .usd)
 sudo apt-get install git-lfs && git lfs install
 
